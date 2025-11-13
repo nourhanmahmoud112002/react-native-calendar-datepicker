@@ -54,17 +54,9 @@ const YearButton = () => {
             ? `${formatNumber(years[0] || 0, numerals)} - ${formatNumber(years[years.length - 1] || 0, numerals)}`
             : formatNumber(parseInt(date.format('YYYY')), numerals)}
         </Text>
-        <Image
-          source={arrow_left}
-          style={{
-            paddingLeft:2,
-            paddingVertical:0.5,
-            width: 18,
-            height: 18,
-            tintColor: '#001081',
-            transform: [{ rotate: '-90deg' }],
-          }}
-        />
+        <View style={defaultStyles.iconContainer}>
+          <Image source={arrow_left} style={defaultStyles.icon} />
+        </View>
       </View>
     </Pressable>
   );
@@ -77,5 +69,17 @@ const defaultStyles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     flexDirection: 'row',
+  },
+  iconContainer: {
+    padding: 4,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  icon: {
+    paddingVertical: 0.5,
+    width: 14,
+    height: 14,
+    tintColor: '#001081',
+    transform: [{ rotate: '-90deg' }],
   },
 });
