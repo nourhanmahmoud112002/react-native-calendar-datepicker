@@ -1,8 +1,9 @@
 import React, { memo } from 'react';
-import { Pressable, StyleSheet, Text, View } from 'react-native';
+import { Image, Pressable, StyleSheet, Text, View } from 'react-native';
 import { useCalendarContext } from '../../calendar-context';
 import { formatNumber, adjustDayjsHijriDate, getYearRange } from '../../utils';
 import dayjs from 'dayjs';
+const arrow_left = require('../../assets/images/arrow_left.png');
 
 const YearButton = () => {
   const {
@@ -53,6 +54,17 @@ const YearButton = () => {
             ? `${formatNumber(years[0] || 0, numerals)} - ${formatNumber(years[years.length - 1] || 0, numerals)}`
             : formatNumber(parseInt(date.format('YYYY')), numerals)}
         </Text>
+        <Image
+          source={arrow_left}
+          style={{
+            paddingLeft:2,
+            paddingVertical:0.5,
+            width: 18,
+            height: 18,
+            tintColor: '#001081',
+            transform: [{ rotate: '-90deg' }],
+          }}
+        />
       </View>
     </Pressable>
   );
@@ -64,5 +76,6 @@ const defaultStyles = StyleSheet.create({
   container: {
     alignItems: 'center',
     justifyContent: 'center',
+    flexDirection: 'row',
   },
 });
