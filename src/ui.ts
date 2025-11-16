@@ -96,6 +96,7 @@ export enum DayFlag {
   today = 'today',
   /** The label of the today. */
   today_label = 'today_label',
+  pastDay_label = 'pastDay_label',
 }
 
 export enum MonthState {

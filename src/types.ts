@@ -56,6 +56,7 @@ export type CalendarDay = {
   inMiddle: boolean;
   rangeStart: boolean;
   rangeEnd: boolean;
+  isPastDay?: boolean;
 };
 
 export type CalendarWeek = {

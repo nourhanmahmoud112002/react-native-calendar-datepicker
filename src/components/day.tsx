@@ -45,6 +45,7 @@ const Day = ({
     isDisabled,
     isCurrentMonth,
     isToday,
+    isPastDay,
     isSelected,
     inRange,
     leftCrop,
@@ -61,6 +62,7 @@ const Day = ({
     defaultStyles.dayContainer,
     styles.day,
     isToday && styles.today,
+
     !isCurrentMonth && styles.outside,
     isSelected && styles.selected,
     isDisabled && styles.disabled,
@@ -78,6 +80,7 @@ const Day = ({
     inMiddle && styles.range_middle_label,
     rangeStart && styles.range_start_label,
     rangeEnd && styles.range_end_label,
+    isPastDay && styles.pastDay_label,
   ]);
 
   const containerClassName = cn(

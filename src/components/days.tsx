@@ -104,6 +104,8 @@ const Days = () => {
       const isFirstDayOfMonth = day.dayOfMonth === 1;
       const isLastDayOfMonth = day.dayOfMonth === fullDaysInMonth;
       const isToday = areDatesOnSameDay(day.date, today, calendar);
+      const isPastDay =
+        getDayjs(day.date, calendar).isBefore(today, 'day') && !isToday;
       let inRange = false;
       let isSelected = false;
       let isCrop = false;
@@ -203,6 +205,7 @@ const Days = () => {
       return {
         ...day,
         isToday,
+        isPastDay,
         isSelected,
         inRange,
         leftCrop,
