@@ -60,8 +60,8 @@ const Weekdays = ({
             ) : (
               <Text
                 style={[
-                  styles?.weekday_label,
                   isSelected && style.selectedWeekday,
+                  styles?.weekday_label,
                 ]}
                 className={classNames.weekday_label}
               >
@@ -90,7 +90,6 @@ const createDefaultStyles = (weekdaysHeight: number, isRTL: boolean) =>
       justifyContent: 'center',
     },
     selectedWeekday: {
-      color: '#212121',
       fontWeight: '700',
     },
   });

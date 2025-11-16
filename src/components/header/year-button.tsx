@@ -1,5 +1,12 @@
-import React, { memo } from 'react';
-import { Image, Pressable, StyleSheet, Text, View } from 'react-native';
+import React, { memo, useMemo } from 'react';
+import {
+  Image,
+  ImageStyle,
+  Pressable,
+  StyleSheet,
+  Text,
+  View,
+} from 'react-native';
 import { useCalendarContext } from '../../calendar-context';
 import { formatNumber, adjustDayjsHijriDate, getYearRange } from '../../utils';
 import dayjs from 'dayjs';
@@ -30,7 +37,13 @@ const YearButton = () => {
         ? (currentDate as dayjs.Dayjs)
         : adjustDayjsHijriDate(currentDate as dayjs.Dayjs);
   }
-
+  const iconStyle: ImageStyle = useMemo(
+    () => ({
+      ...defaultStyles.icon,
+      ...(styles?.button_next_image as ImageStyle),
+    }),
+    [styles?.button_next_image, defaultStyles.icon]
+  );
   return (
     <Pressable
       disabled={disableYearPicker}
@@ -47,7 +60,7 @@ const YearButton = () => {
         className={classNames?.year_selector}
       >
         <Text
-          style={[styles?.year_selector_label, defaultStyles.year]}
+          style={[defaultStyles.year, styles?.year_selector_label]}
           className={classNames?.year_selector_label}
         >
           {calendarView === 'year'
@@ -55,7 +68,7 @@ const YearButton = () => {
             : formatNumber(parseInt(date.format('YYYY')), numerals)}
         </Text>
         <View style={defaultStyles.iconContainer}>
-          <Image source={arrow_left} style={defaultStyles.icon} />
+          <Image source={arrow_left} style={iconStyle} />
         </View>
       </View>
     </Pressable>
@@ -79,11 +92,9 @@ const defaultStyles = StyleSheet.create({
     paddingVertical: 0.5,
     width: 14,
     height: 14,
-    tintColor: '#001081',
     transform: [{ rotate: '-90deg' }],
   },
   year: {
-    color: '#212121',
     fontSize: 18,
     fontWeight: '500',
   },

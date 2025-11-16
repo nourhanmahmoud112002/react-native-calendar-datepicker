@@ -48,7 +48,7 @@ const MonthButton = () => {
         className={classNames?.month_selector}
       >
         <Text
-          style={[[styles?.month_selector_label, defaultStyles.month]]}
+          style={[[defaultStyles.month, styles?.month_selector_label]]}
           className={classNames?.month_selector_label}
         >
           {currentMonthText}
@@ -61,7 +61,6 @@ const MonthButton = () => {
 export default memo(MonthButton);
 const defaultStyles = StyleSheet.create({
   month: {
-    color: '#212121',
     fontSize: 18,
     fontWeight: '500',
   },
