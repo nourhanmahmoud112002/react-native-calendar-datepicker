@@ -1,6 +1,6 @@
 import React, { memo } from 'react';
 import dayjs from 'dayjs';
-import { Pressable, Text, View } from 'react-native';
+import { Pressable, StyleSheet, Text, View } from 'react-native';
 import { useCalendarContext } from '../../calendar-context';
 import { adjustDayjsHijriDate, isValidJalaliLocale } from '../../utils';
 
@@ -48,7 +48,7 @@ const MonthButton = () => {
         className={classNames?.month_selector}
       >
         <Text
-          style={styles?.month_selector_label}
+          style={[[styles?.month_selector_label, defaultStyles.month]]}
           className={classNames?.month_selector_label}
         >
           {currentMonthText}
@@ -59,3 +59,10 @@ const MonthButton = () => {
 };
 
 export default memo(MonthButton);
+const defaultStyles = StyleSheet.create({
+  month: {
+    color: '#212121',
+    fontSize: 18,
+    fontWeight: '500',
+  },
+});

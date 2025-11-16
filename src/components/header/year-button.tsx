@@ -47,7 +47,7 @@ const YearButton = () => {
         className={classNames?.year_selector}
       >
         <Text
-          style={styles?.year_selector_label}
+          style={[styles?.year_selector_label, defaultStyles.year]}
           className={classNames?.year_selector_label}
         >
           {calendarView === 'year'
@@ -81,5 +81,10 @@ const defaultStyles = StyleSheet.create({
     height: 14,
     tintColor: '#001081',
     transform: [{ rotate: '-90deg' }],
+  },
+  year: {
+    color: '#212121',
+    fontSize: 18,
+    fontWeight: '500',
   },
 });

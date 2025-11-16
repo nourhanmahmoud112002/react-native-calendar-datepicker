@@ -21,6 +21,12 @@ const createDefaultStyles = (isRTL: boolean) =>
     navigation: {
       flexDirection: isRTL ? 'row-reverse' : 'row',
     },
+    line: {
+      height: 1,
+      backgroundColor: '#F5F5F5',
+      marginBottom: 5,
+      marginTop: 10,
+    },
   });
 
 const NavigationButtons = ({ styles, classNames, isRTL }: NavigationProps) => {
@@ -94,6 +100,7 @@ const Header = ({
           </>
         )}
       </View>
+      <View style={style.line} />
     </View>
   );
 };

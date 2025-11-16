@@ -1,11 +1,12 @@
 import React, { memo, useMemo } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
-import { getWeekdays } from '../utils';
+import { getDayjs, getWeekdays } from '../utils';
 import {
   Styles,
   ClassNames,
   WeekdayFormat,
   CalendarComponents,
+  DateType,
 } from '../types';
 import { WEEKDAYS_HEIGHT } from '../enums';
 
@@ -18,6 +19,7 @@ type WeekdaysProps = {
   weekdaysHeight?: number;
   components?: CalendarComponents;
   isRTL: boolean;
+  selectedDate?: DateType;
 };
 
 const Weekdays = ({
@@ -29,11 +31,15 @@ const Weekdays = ({
   weekdaysHeight = WEEKDAYS_HEIGHT,
   components = {},
   isRTL,
+  selectedDate,
 }: WeekdaysProps) => {
   const style = useMemo(
     () => createDefaultStyles(weekdaysHeight, isRTL),
     [weekdaysHeight, isRTL]
   );
+  const selectedWeekdayIndex = selectedDate
+    ? getDayjs(selectedDate).day() // 0 = Sunday, 6 = Saturday
+    : null;
 
   return (
     <View
@@ -41,24 +47,30 @@ const Weekdays = ({
       className={classNames.weekdays}
       testID="weekdays"
     >
-      {getWeekdays(locale, firstDayOfWeek)?.map((weekday, index) => (
-        <View
-          key={index}
-          style={[style.weekday, styles.weekday]}
-          className={classNames.weekday}
-        >
-          {components.Weekday ? (
-            components.Weekday(weekday)
-          ) : (
-            <Text
-              style={styles?.weekday_label}
-              className={classNames.weekday_label}
-            >
-              {weekday.name[weekdaysFormat]}
-            </Text>
-          )}
-        </View>
-      ))}
+      {getWeekdays(locale, firstDayOfWeek)?.map((weekday, index) => {
+        const isSelected = index === selectedWeekdayIndex;
+        return (
+          <View
+            key={index}
+            style={[style.weekday, styles.weekday]}
+            className={classNames.weekday}
+          >
+            {components.Weekday ? (
+              components.Weekday(weekday)
+            ) : (
+              <Text
+                style={[
+                  styles?.weekday_label,
+                  isSelected && style.selectedWeekday,
+                ]}
+                className={classNames.weekday_label}
+              >
+                {weekday.name[weekdaysFormat]}
+              </Text>
+            )}
+          </View>
+        );
+      })}
     </View>
   );
 };
@@ -76,5 +88,9 @@ const createDefaultStyles = (weekdaysHeight: number, isRTL: boolean) =>
       width: `${99.9 / 7}%`,
       alignItems: 'center',
       justifyContent: 'center',
+    },
+    selectedWeekday: {
+      color: '#212121',
+      fontWeight: '700',
     },
   });

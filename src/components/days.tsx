@@ -244,6 +244,7 @@ const Days = () => {
           weekdaysHeight={weekdaysHeight}
           components={components}
           isRTL={isRTL}
+          selectedDate={currentDate}
         />
       ) : null}
       <View style={containerStyle} className={classNames?.days} testID="days">
