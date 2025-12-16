@@ -143,6 +143,28 @@ const DateTimePicker = (
     [mode, initialView]
   );
 
+  // Check if locale is RTL
+  const isRTLLocale = useMemo(() => {
+    const rtlLocales = [
+      'ar',
+      'he',
+      'fa',
+      'ur',
+      'arc',
+      'dv',
+      'ha',
+      'khw',
+      'ks',
+      'ku',
+      'ps',
+      'sd',
+      'ug',
+      'yi',
+    ];
+    const localeCode = locale?.toLowerCase().split('-')[0] || '';
+    return rtlLocales.includes(localeCode);
+  }, [locale]);
+
   const firstDay = useMemo(
     () =>
       firstDayOfWeek && firstDayOfWeek > 0 && firstDayOfWeek <= 6
@@ -222,7 +244,7 @@ const DateTimePicker = (
       calendarView: initialCalendarView,
       currentDate: initialDate,
       currentYear: dayjs(initialDate).toObject().years,
-      isRTL: calendar === 'jalali' || I18nManager.isRTL,
+      isRTL: calendar === 'jalali' || isRTLLocale || I18nManager.isRTL,
     };
   }, [
     mode,
@@ -237,6 +259,7 @@ const DateTimePicker = (
     year,
     timeZone,
     initialCalendarView,
+    isRTLLocale,
   ]);
 
   const [state, dispatch] = useReducer(
@@ -297,11 +320,11 @@ const DateTimePicker = (
   useEffect(() => {
     const newState = {
       ...initialState,
-      isRTL: calendar === 'jalali' || I18nManager.isRTL,
+      isRTL: calendar === 'jalali' || isRTLLocale || I18nManager.isRTL,
     };
 
     dispatch({ type: CalendarActionKind.RESET_STATE, payload: newState });
-  }, [calendar, initialState]);
+  }, [calendar, initialState, isRTLLocale]);
 
   useEffect(() => {
     if (prevTimezone !== timeZone) {
